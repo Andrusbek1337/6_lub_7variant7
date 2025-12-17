@@ -110,4 +110,4 @@ void solveTask2() {
     std::cout << results[0] << " " << results[1] << " " << results[2] << std::endl;
 }
 
-#endif // TASK2_H
+#endif
