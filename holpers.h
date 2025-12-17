@@ -26,4 +26,4 @@ int getPositiveInt(const std::string& prompt) {
     }
 }
 
-#endif // HELPERS_H
+#endif
