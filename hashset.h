@@ -6,18 +6,6 @@
 
 template<typename T>
 class HashSet {
-private:
-    std::vector<T> elements;
-
-    // Приватный вспомогательный метод для поиска индекса элемента
-    int findIndex(const T& item) const {
-        auto it = std::find(elements.begin(), elements.end(), item);
-        if (it != elements.end()) {
-            return static_cast<int>(std::distance(elements.begin(), it));
-        }
-        return -1;
-    }
-
 public:
     // Конструктор по умолчанию
     HashSet() = default;
@@ -32,22 +20,22 @@ public:
     // Добавление элемента (если он уникален)
     void Add(const T& item) {
         if (!Contains(item)) {
-            elements.push_back(item);
+            elements_.push_back(item);
         }
     }
 
     // Удаление элемента
     void Remove(const T& item) {
-        int index = findIndex(item);
+        int index = findIndex_(item);
         if (index != -1) {
-            elements.erase(elements.begin() + index);
+            elements_.erase(elements_.begin() + index);
         }
     }
 
     // Объединение двух коллекций
     HashSet<T> Union(const HashSet<T>& other) const {
         HashSet<T> result = *this;
-        for (const auto& item : other.elements) {
+        for (const auto& item : other.elements_) {
             result.Add(item);
         }
         return result;
@@ -56,7 +44,7 @@ public:
     // Разность коллекций (элементы из this, которых нет в other)
     HashSet<T> Except(const HashSet<T>& other) const {
         HashSet<T> result;
-        for (const auto& item : elements) {
+        for (const auto& item : elements_) {
             if (!other.Contains(item)) {
                 result.Add(item);
             }
@@ -67,7 +55,7 @@ public:
     // Пересечение коллекций
     HashSet<T> Intersect(const HashSet<T>& other) const {
         HashSet<T> result;
-        for (const auto& item : elements) {
+        for (const auto& item : elements_) {
             if (other.Contains(item)) {
                 result.Add(item);
             }
@@ -77,23 +65,36 @@ public:
 
     // Проверка наличия элемента
     bool Contains(const T& item) const {
-        return findIndex(item) != -1;
+        return findIndex_(item) != -1;
     }
 
     // Получение размера коллекции
     size_t Size() const {
-        return elements.size();
+        return elements_.size();
     }
 
     // Получение всех элементов (для вывода)
     std::vector<T> GetElements() const {
-        return elements;
+        return elements_;
     }
 
     // Очистка коллекции
     void Clear() {
-        elements.clear();
+        elements_.clear();
     }
+
+private:
+    // Приватный вспомогательный метод для поиска индекса элемента
+    int findIndex_(const T& item) const {
+        auto it = std::find(elements_.begin(), elements_.end(), item);
+        if (it != elements_.end()) {
+            return static_cast<int>(std::distance(elements_.begin(), it));
+        }
+        return -1;
+    }
+
+    // Приватное поле с элементами
+    std::vector<T> elements_;
 };
 
-#endif // HASHSET_H
+#endif
