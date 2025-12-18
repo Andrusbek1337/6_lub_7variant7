@@ -5,7 +5,7 @@
 
 template<typename K, typename V>
 class Dictionary {
-public:
+  public:
     // Конструктор по умолчанию
     Dictionary() = default;
 
@@ -62,7 +62,7 @@ public:
         return keys;
     }
 
-private:
+  private:
     // Приватная структура для хранения пар ключ-значение
     struct KeyValuePair {
         K key;
