@@ -6,7 +6,7 @@
 
 template<typename T>
 class HashSet {
-public:
+  public:
     // Конструктор по умолчанию
     HashSet() = default;
 
@@ -83,7 +83,7 @@ public:
         elements_.clear();
     }
 
-private:
+  private:
     // Приватный вспомогательный метод для поиска индекса элемента
     int findIndex_(const T& item) const {
         auto it = std::find(elements_.begin(), elements_.end(), item);
